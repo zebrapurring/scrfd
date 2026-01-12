@@ -18,7 +18,6 @@ mod tests {
     use opencv::imgcodecs::{imdecode, IMREAD_UNCHANGED};
     use opencv::prelude::MatTraitConst;
     use opencv::{core, imgcodecs, imgproc};
-    use ort::execution_providers::cpu::CPUExecutionProvider;
     use ort::session::Session;
     use std::collections::HashMap;
     use std::path::Path;
@@ -27,9 +26,7 @@ mod tests {
     fn test_sync_face_detection() -> Result<(), Box<dyn std::error::Error>> {
         // Initialize SCRFD
         let model_path = Path::new("models/det_10g.onnx");
-        let session = Session::builder()?
-            .with_execution_providers([CPUExecutionProvider::default().build()])?
-            .commit_from_file(model_path)?;
+        let session = Session::builder()?.commit_from_file(model_path)?;
 
         let mut scrfd = builder::SCRFDBuilder::new(session)
             .set_input_size((640, 640))
