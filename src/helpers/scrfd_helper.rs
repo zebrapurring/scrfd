@@ -349,7 +349,7 @@ impl ScrfdHelpers {
     /// ```
     pub fn concatenate_array2(arrays: &[Array2<f32>]) -> Result<Array2<f32>, Box<dyn Error>> {
         if arrays.is_empty() {
-            return Ok(Array2::<f32>::zeros((0, arrays[0].shape()[1])));
+            return Ok(Array2::<f32>::zeros((0, 0)));
         }
         Ok(ndarray::concatenate(
             Axis(0),
